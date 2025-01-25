@@ -4,12 +4,19 @@ import http from 'http';
 import cors from 'cors';
 
 const app = express();
-app.use(cors());
+
+// Enable CORS for Express API
+app.use(cors({
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST'],
+}));
 
 const server = http.createServer(app);
+
+// Set up Socket.IO with CORS options
 const io = new SocketIOServer(server, {
   cors: {
-    origin: '*',
+    origin: '*', // Allow all origins for WebSocket connections
     methods: ['GET', 'POST'],
   },
 });
